@@ -76,29 +76,28 @@ class Player extends Gameobject
       }
     }
     
-    println(test);
     
-    //for(int x=0; x< unearth.length; x++)
-    //    {
-    //      for (int z=0; z< unearth.length; z++)
-    //      {
-    //        if (unearth[x][z] == true)
-    //        {
-    //          //block hit
-    //          if (pos.x-10 < (x*20+20)
-    //               && pos.x+10 > (x*20)
-    //               && pos.y-40 -10< (z*20+20)
-    //               && pos.y-40 +10> (z*20))
-    //          {
-    //            unearth[x][z] =false;
-    //          }
-    //        }
-    //      }
-    //    }
-  }
-  
-  void render()
-  {
+    for(int x=0; x< unearth.length; x++)
+      {
+        for (int z=0; z< unearth.length; z++)
+        {
+          if (unearth[x][z] == true)
+          {
+            //block hit
+            if (
+                 pos.x > x*20 -10
+                 && pos.x < x*20 +25
+                 && pos.y-50 > z*20 -10
+                 && pos.y-60 < z*20 +20)
+           {
+              unearth[x][z] =false;
+            }
+          }
+        }
+      }
+    
+    //unearth [int((pos.x)/20)][int((pos.y)/20)] = fal  text (5,5,score + '!');
+    
     pushMatrix();
     
     translate(pos.x,pos.y);
@@ -120,8 +119,39 @@ class Player extends Gameobject
       line (2,-16, -2, -19);
       line (-2,-19, 2,-22);
       line (2,-22, 0,-25);
+      
+      for(int x=0; x< villain.length; x++)
+      {
+        for (int z=0; z< villain.length; z++)
+        {
+          if (villain[x][z] == true)
+          {
+           //block hit
+            if (
+                 pos.x > x*20 -35
+                 && pos.x < x*20 +50
+                 && pos.y-50 > z*20 -25
+                 && pos.y-50 < z*20 +55)
+            {
+              inflation ++;
+              if (inflation >60)
+              {
+                villain[x][z] =false;
+                score += 500;
+              }
+              //println ("it's working "+ inflation);
+            }
+          }
+        }
+      }
+    }
+    else
+    {
+      inflation = 0;
     }
     
     popMatrix();
+    
+    
   }
 }
